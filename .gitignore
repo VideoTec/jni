@@ -1,8 +1,15 @@
+*.d
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.class
+*.jar
+*.apk
+.settings/
+bin/
+gen/
 
 # Precompiled Headers
 *.gch
