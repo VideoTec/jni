@@ -33,3 +33,4 @@ void helloworld(JNIEnv *env, jobject clazz, jstring jni_str) {
 JNINativeMethod g_helloworl_jnicls_methods[] = {
     {"jni_helloworld", "(Ljava/lang/String;)V", (void *)helloworld}
 };
+const int g_methods_num = sizeof(g_helloworl_jnicls_methods) / sizeof(g_helloworl_jnicls_methods[0]);

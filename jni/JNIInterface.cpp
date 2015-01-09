@@ -2,6 +2,7 @@
 
 #define HELLOWORLD_JNI_CLS "com/example/jnihelloworld/JNIInterface"
 
+extern const int g_methods_num;
 extern JNINativeMethod g_helloworl_jnicls_methods[];
 
 extern "C" jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
@@ -21,7 +22,7 @@ extern "C" jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
 
     if(helloworld_jni_cls) {
         LOGI("RegisterNatives begin");
-        env->RegisterNatives(helloworld_jni_cls, g_helloworl_jnicls_methods, 1);
+        env->RegisterNatives(helloworld_jni_cls, g_helloworl_jnicls_methods, g_methods_num);
         LOGI("RegisterNatives end");
 
     } else {

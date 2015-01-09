@@ -2,6 +2,9 @@ CXX = E:\android\ndk\toolchains\arm-linux-androideabi-4.8\prebuilt\windows-x86_6
 CXXFLAGS = --sysroot=E:/android/ndk/platforms/android-9/arch-arm \
            -std=c++11 -MMD -MF $(@:.o=.d) -MT $@
 
+CC = E:\android\ndk\toolchains\arm-linux-androideabi-4.8\prebuilt\windows-x86_64\bin\arm-linux-androideabi-gcc.exe
+CFLAGS = --sysroot=E:/android/ndk/platforms/android-9/arch-arm -std=c11 -MMD -MF $(@:.o=.d) -MT $@
+
 LD = E:/android/ndk/toolchains/arm-linux-androideabi-4.8/prebuilt/windows-x86_64/bin/arm-linux-androideabi-gcc
 LDFLAGS = --sysroot=E:/android/ndk/platforms/android-9/arch-arm \
           -L..\..\..\..\feinno-video\libav-10.1\output\lib \
