@@ -1,10 +1,5 @@
 #include "JNIInterface.h"
 
-#define HELLOWORLD_JNI_CLS "com/example/jnihelloworld/JNIInterface"
-
-extern const int g_methods_num;
-extern JNINativeMethod g_helloworl_jnicls_methods[];
-
 extern "C" jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
     JNIEnv *env = 0;
     jclass helloworld_jni_cls;
