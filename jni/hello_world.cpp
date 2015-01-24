@@ -4,7 +4,7 @@ extern "C" {
 
 void helloworld(JNIEnv *env, jobject clazz, jstring jni_str) {
   const char *str_utf8 = env->GetStringUTFChars(jni_str, nullptr);
-  //LOGI(str_utf8);
+  LOGI("%s", str_utf8);
   env->ReleaseStringUTFChars(jni_str, str_utf8);
 }
 
