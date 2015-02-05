@@ -11,7 +11,7 @@
       LOGI("register natives success for class: %s", class_name); \
     } \
   } else { \
-    LOGE("cannt find java class: &s", class_name); \
+    LOGE("cannt find java class: %s", class_name); \
   }
 
 jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
