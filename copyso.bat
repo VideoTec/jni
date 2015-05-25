@@ -1,7 +1,7 @@
 @echo off
 cd %~dp0
 :BUILD
-call ndk-build V=1 NDK_DEBUG=0
+call ndk-build V=0 NDK_DEBUG=0
 echo ±‡“ÎΩ· ¯
 :WAIT
 set /p KEY=
