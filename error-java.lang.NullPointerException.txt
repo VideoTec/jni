@@ -1,0 +1,43 @@
+16:39 2015/6/8
+
+造成错误的原因是：
+        mRecord = new AudioRecordTest();  没有初始化
+
+源码是：
+    AudioRecordTest mRecord;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //mView = (TextView)findViewById(R.id.t1);
+        mSurfaceView = (SurfaceView) findViewById(R.id.sfv);
+        mSurfaceView.getHolder().addCallback(this);
+        mTest = new OpenGLESTest();
+        //mView.setBackgroundResource(R.drawable.wifi_icon);
+        //mWifiIcon = (AnimationDrawable)mView.getBackground();
+        //mWifiIcon.start();
+        mRecord.record();
+    }
+
+出错信息是
+06-08 16:33:45.300: E/AndroidRuntime(28429): FATAL EXCEPTION: main
+06-08 16:33:45.300: E/AndroidRuntime(28429): java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.testdemo/com.example.testdemo.MainActivity}: java.lang.NullPointerException
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2100)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2125)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread.access$600(ActivityThread.java:140)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1227)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.os.Looper.loop(Looper.java:137)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread.main(ActivityThread.java:4898)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at java.lang.reflect.Method.invokeNative(Native Method)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at java.lang.reflect.Method.invoke(Method.java:511)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:1013)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:780)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at dalvik.system.NativeStart.main(Native Method)
+06-08 16:33:45.300: E/AndroidRuntime(28429): Caused by: java.lang.NullPointerException
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at com.example.testdemo.MainActivity.onCreate(MainActivity.java:40)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.Activity.performCreate(Activity.java:5206)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1083)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2064)
+06-08 16:33:45.300: E/AndroidRuntime(28429): 	... 11 more
