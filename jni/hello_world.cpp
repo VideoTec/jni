@@ -16,6 +16,7 @@ extern "C" const int gHelloWorldNumMethods =
 
 int jniSay(JNIEnv *env, jobject clazz, jstring jni_str) {
   const char *str_utf8 = env->GetStringUTFChars(jni_str, nullptr);
+  jniThrowNullPointerException(env, "test exception");
   LOGI("%s", str_utf8);
   env->ReleaseStringUTFChars(jni_str, str_utf8);
   return 9;
