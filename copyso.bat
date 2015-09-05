@@ -2,6 +2,7 @@
 cd %~dp0
 :BUILD
 call ndk-build V=0 NDK_DEBUG=0
+echo f | xcopy libs\armeabi-v7a\libjniTemplate.so D:\workspace\Project\app\src\main\jniLibs\armeabi-v7a\libjniTemplate.so /Y
 echo ±‡“ÎΩ· ¯
 :WAIT
 set /p KEY=

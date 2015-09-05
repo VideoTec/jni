@@ -1,16 +1,22 @@
 #include "jni_util.h"
 
+/**
+  Jni module: HelloWorld
+*/
+
 extern "C" {
-JNIEXPORT void JNICALL helloworld(JNIEnv *env, jobject clazz, jstring jni_str);
+JNIEXPORT int JNICALL jniSay(JNIEnv *env, jobject clazz, jstring jni_str);
 }
 
-JNINativeMethod g_helloworld_methods[] = {
-    {"say_hello", "(Ljava/lang/String;)V", (void *)helloworld}
+JNINativeMethod gHelloWorldMethods[] = {
+    {"say", "(Ljava/lang/String;)I", (void *)jniSay}
 };
-extern "C" const int g_helloworld_methods_num = sizeof(g_helloworld_methods) / sizeof(g_helloworld_methods[0]);
+extern "C" const int gHelloWorldNumMethods = 
+    sizeof(gHelloWorldMethods) / sizeof(gHelloWorldMethods[0]);
 
-void helloworld(JNIEnv *env, jobject clazz, jstring jni_str) {
+int jniSay(JNIEnv *env, jobject clazz, jstring jni_str) {
   const char *str_utf8 = env->GetStringUTFChars(jni_str, nullptr);
   LOGI("%s", str_utf8);
   env->ReleaseStringUTFChars(jni_str, str_utf8);
+  return 9;
 }
