@@ -1,0 +1,17 @@
+I/JNILog: JNI Template: v2.0.1
+I/JNILog: Registering com/feinno/jni/V6SDKDemo's 1 native methods...
+E/dalvikvm: ERROR: couldn't find native method
+E/dalvikvm: Requested: Lcom/feinno/jni/V6SDKDemo;.test:(Ljava/lang/String;)I
+E/dalvikvm: Candidate: Lcom/feinno/jni/V6SDKDemo;.test:(Ljava/lang/String;)V
+E/dalvikvm: JNI posting fatal error: RegisterNatives failed for 'com/feinno/jni/V6SDKDemo'; aborting...
+
+错误的原因是：
+
+JNINativeMethod gV6SDKDemoMethods[] = {
+    {"test", "(Ljava/lang/String;)I", (void *)test}
+};
+
+java 中定义的 test 方法是：
+public static native void test(String t);
+
+因为，返回值不一样，导致，指定的签名方法，找到对应的 native 方法。
