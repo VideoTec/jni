@@ -11,6 +11,10 @@
 bin/
 gen/
 
+.gradle/
+.idea/
+build/
+
 # Precompiled Headers
 *.gch
 *.pch

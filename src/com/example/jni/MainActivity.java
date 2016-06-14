@@ -1,6 +1,7 @@
 package com.example.jni;
 
 import com.example.jnihelloworld.R;
+import com.xueyie.jni.JNITemplate;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,8 +15,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        HelloWorld itf = new HelloWorld();
-        itf.say_hello("hellow world");
+        JNITemplate itf = new JNITemplate();
+        itf.say("hellow world");
     }
 
 
