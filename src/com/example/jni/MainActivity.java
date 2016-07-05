@@ -4,19 +4,25 @@ import com.example.jnihelloworld.R;
 import com.xueyie.jni.JNITemplate;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends Activity {
+    private JNITemplate mJni;
+    public static Context sCtx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        JNITemplate itf = new JNITemplate();
-        itf.say("hellow world");
+        mJni = new JNITemplate();
+        mJni.say("hellow world");
+        sCtx = this;
     }
 
 
@@ -37,5 +43,9 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onSigOccur(View v) {
+       mJni.sigOccur();
     }
 }

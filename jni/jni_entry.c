@@ -2,6 +2,22 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
+
+static struct sigaction old_sa[NSIG];
+JavaVM *g_jvm = 0;
+
+void android_sigaction(int signal, siginfo_t *info, void *reserved)
+{
+    if (g_jvm != 0) {
+      JNIEnv* env = 0;
+      (*g_jvm)->AttachCurrentThread(g_jvm, &env, 0);
+      jclass java_clazz = (*env)->FindClass(env, "com/xueyie/jni/JNITemplate");
+      jmethodID methodID = (*env)->GetStaticMethodID(env, java_clazz, "onNativeCrashed", "()V");
+      (*env)->CallStaticVoidMethod(env, java_clazz, methodID);
+    }
+    old_sa[signal].sa_handler(signal);
+}
 
 int jniRegisterNativeMethods(JNIEnv* env, const char* className,
     const JNINativeMethod* methods, int numMethods)
@@ -9,6 +25,7 @@ int jniRegisterNativeMethods(JNIEnv* env, const char* className,
     LOGI("Registering %s's %d native methods...", className, numMethods);
     jclass java_clazz = (*env)->FindClass(env, className);
 
+    //g_env = env;
     if (java_clazz == NULL) {
         char* msg;
         asprintf(&msg, "Native registration unable to find class '%s'; aborting...", className);
@@ -33,7 +50,22 @@ int jniRegisterNativeMethods(JNIEnv* env, const char* className,
 
 jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
     JNIEnv *env = 0;
-    LOGI("JNI Template: v2.0.1");
+    g_jvm = jvm;
+    LOGI("JNI Template: v2.0.1 56");
+    
+    // Try to catch crashes...
+    struct sigaction handler;
+    memset(&handler, 0, sizeof(sigaction));
+    handler.sa_sigaction = android_sigaction;
+    handler.sa_flags = SA_RESETHAND;
+#define CATCHSIG(X) sigaction(X, &handler, &old_sa[X])
+    CATCHSIG(SIGILL);
+    CATCHSIG(SIGABRT);
+    CATCHSIG(SIGBUS);
+    CATCHSIG(SIGFPE);
+    CATCHSIG(SIGSEGV);
+    CATCHSIG(SIGSTKFLT);
+    CATCHSIG(SIGPIPE);
 
     if((*jvm)->GetEnv(jvm, (void **)&env, JNI_VERSION_1_4) < 0) {
         LOGI("jvm->GetEnv failed");
